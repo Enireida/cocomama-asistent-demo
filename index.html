@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coco Mama Kids Asistent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f5fb;--card:#fff;--ink:#0d1330;--mut:#5b6585;--line:#e2e6f1;--line2:#eef0f7;
+  --brand:#4f46e5;--brand2:#7c5cff;--brand-soft:#eceaff;
+  --c-order:#4f46e5;--c-order-s:#eceaff;--c-swap:#0e9f9a;--c-swap-s:#dcf5f3;--c-alert:#e5484d;--c-alert-s:#fde8e9;--c-stat:#e08a00;--c-stat-s:#fdf0d5;
+  --ok:#12a371;--ok-soft:#dcf5ec;
+  --ig-in:#efeff3;--ig-in-ink:#0d1330;
+  --bezel:#0b0f1f;--shadow:0 1px 2px rgba(13,19,48,.05),0 14px 40px rgba(13,19,48,.10);
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+  --hero:linear-gradient(135deg,#17123f 0%,#3a31c9 55%,#7c5cff 100%);
+  color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a0e1f;--card:#121833;--ink:#eef0fb;--mut:#9aa4c7;--line:#252c4d;--line2:#1a2140;
+  --brand:#8b86ff;--brand2:#a58cff;--brand-soft:#232050;
+  --c-order:#8b86ff;--c-order-s:#232050;--c-swap:#3fd0c9;--c-swap-s:#123a3a;--c-alert:#ff7a7f;--c-alert-s:#3d1a20;--c-stat:#ffb02e;--c-stat-s:#3b2c0e;
+  --ok:#43d6a0;--ok-soft:#0f3328;--ig-in:#1d2447;--ig-in-ink:#eef0fb;--bezel:#04060f;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a0e1f;--card:#121833;--ink:#eef0fb;--mut:#9aa4c7;--line:#252c4d;--line2:#1a2140;
+  --brand:#8b86ff;--brand2:#a58cff;--brand-soft:#232050;
+  --c-order:#8b86ff;--c-order-s:#232050;--c-swap:#3fd0c9;--c-swap-s:#123a3a;--c-alert:#ff7a7f;--c-alert-s:#3d1a20;--c-stat:#ffb02e;--c-stat-s:#3b2c0e;
+  --ok:#43d6a0;--ok-soft:#0f3328;--ig-in:#1d2447;--ig-in-ink:#eef0fb;--bezel:#04060f;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);padding-top:env(safe-area-inset-top,0px)}
+.ic{flex:none;vertical-align:-3px}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.025em;line-height:1.12}
+button{font:inherit;color:inherit}
+/* top */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--card) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--hero);color:#fff;display:grid;place-items:center;font-weight:800;font-size:17px;box-shadow:0 4px 14px rgba(79,70,229,.35)}
+.brand b{display:block;font-weight:800;font-size:16px;letter-spacing:-.02em;line-height:1.1}
+.brand small{color:var(--mut);font-size:12px}
+.seg{display:inline-flex;background:var(--line2);border-radius:12px;padding:4px;gap:2px}
+.seg button{border:0;background:transparent;padding:8px 15px;border-radius:9px;cursor:pointer;font-weight:600;font-size:14px;color:var(--mut);display:flex;gap:7px;align-items:center}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(13,19,48,.15)}
+main{max-width:1200px;margin:0 auto;padding:20px 20px 70px}
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero);color:#fff;border-radius:26px;padding:34px 30px;margin-bottom:24px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}
+.hero::before{width:320px;height:320px;right:-80px;top:-120px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%)}
+.hero::after{width:260px;height:260px;right:120px;bottom:-150px;background:radial-gradient(circle,rgba(255,140,200,.35),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{display:inline-flex;gap:7px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:5px 12px;border-radius:999px}
+.hero h1{font-size:clamp(26px,4.2vw,42px);margin:14px 0 10px;max-width:760px}
+.hero p{margin:0;max-width:640px;color:rgba(255,255,255,.82);font-size:16px}
+.hero .ctrl{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hero label{display:flex;gap:9px;align-items:center;font-size:13px;color:rgba(255,255,255,.85)}
+.hero input{font:inherit;width:120px;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff}
+.hero input:focus{outline:2px solid #fff}
+.btn{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;padding:9px 15px;border-radius:10px;cursor:pointer;font-weight:600}
+.btn:hover{background:rgba(255,255,255,.24)}
+/* layout */
+.grid{display:grid;gap:26px}
+@media(min-width:980px){.grid{grid-template-columns:400px 1fr;align-items:start}.phone-col{position:sticky;top:84px}}
+/* phone */
+.phone{width:100%;max-width:400px;margin:0 auto;background:var(--bezel);border-radius:50px;padding:11px;box-shadow:0 30px 60px rgba(13,19,48,.28)}
+.screen{position:relative;background:var(--card);border-radius:40px;height:720px;display:flex;flex-direction:column;overflow:hidden}
+.screen::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:92px;height:26px;background:var(--bezel);border-radius:20px;z-index:3}
+.sb{display:flex;justify-content:space-between;align-items:center;padding:15px 28px 6px;font-weight:700;font-size:14px}
+.sb span:last-child{display:flex;gap:5px;align-items:center}
+.ig-h{display:flex;align-items:center;gap:10px;padding:8px 12px 10px;border-bottom:1px solid var(--line2)}
+.ig-h .back{color:var(--ink)}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#ffb36b,#ff4f8b 55%,#7c5cff);padding:2px;flex:none}
+.av i{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--card);font-style:normal;font-weight:800;font-size:13px;color:var(--ink)}
+.ig-h .nm{flex:1;min-width:0}
+.ig-h b{display:block;font-size:14px;line-height:1.2;font-weight:700}
+.ig-h small{color:var(--mut);font-size:12px}
+.ig-h .r{display:flex;gap:14px;color:var(--ink)}
+#chat{flex:1;overflow-y:auto;padding:14px 12px 8px;display:flex;flex-direction:column;gap:3px;scroll-behavior:smooth}
+.prof{text-align:center;padding:10px 0 18px}
+.prof .av{width:72px;height:72px;margin:0 auto 8px;padding:3px}
+.prof .av i{font-size:26px}
+.prof b{display:block;font-size:16px}.prof small{color:var(--mut);font-size:13px;display:block}
+.prof .vp{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;padding:6px 14px;border-radius:9px;background:var(--line2)}
+.day{text-align:center;color:var(--mut);font-size:11px;margin:6px 0 8px}
+.row{display:flex;align-items:flex-end;gap:7px;animation:in .22s ease}
+.row.me{justify-content:flex-end}
+.row .sp{width:26px;flex:none}
+.sm{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#ffb36b,#ff4f8b 55%,#7c5cff);padding:2px;flex:none}
+.sm i{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--card);font-style:normal;font-weight:800;font-size:10px}
+@keyframes in{from{opacity:0;transform:translateY(5px)}}
+.b{max-width:76%;padding:9px 14px;border-radius:22px;word-break:break-word;font-size:14.5px;line-height:1.4}
+.in .b{background:var(--ig-in);color:var(--ig-in-ink)}
+.me .b{background:linear-gradient(160deg,#7b5cff,#3f8cff);color:#fff}
+.b.img{padding:3px;background:transparent!important}
+.b.img img{width:170px;height:170px;object-fit:cover;border-radius:18px;display:block}
+.typing{display:inline-flex;gap:4px;padding:13px 15px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--mut);animation:bn 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bn{50%{transform:translateY(-3px);opacity:.4}}
+#pills{padding:6px 12px 4px;display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+#pills:empty{display:none}
+#pills.list{display:grid;gap:7px;justify-content:stretch;background:var(--card);border-top:1px solid var(--line2);padding:12px}
+.pill{border:1.5px solid var(--brand);color:var(--brand);background:transparent;padding:8px 15px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.pill:hover{background:var(--brand-soft)}
+.pill.soft{border-color:var(--line);color:var(--mut)}
+.tick{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 13px;cursor:pointer;transition:border-color .15s}
+.tick:hover{border-color:var(--brand)}
+.tick .lbl{flex:1;font-weight:600;font-size:14px}
+.tick .ti{color:var(--brand)}
+.box{width:21px;height:21px;border:2px solid var(--mut);border-radius:7px;display:grid;place-items:center;color:transparent;flex:none}
+.tick.on{border-color:var(--brand)}
+.tick.on .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.ig-bar{display:flex;align-items:center;gap:9px;margin:6px 12px 16px;padding:5px 12px 5px 5px;border:1px solid var(--line);border-radius:28px;background:var(--card)}
+.cam{width:36px;height:36px;border-radius:50%;background:linear-gradient(160deg,#7b5cff,#3f8cff);color:#fff;display:grid;place-items:center;flex:none}
+#inp{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:14.5px;color:var(--ink);padding:8px 0}
+#inp:focus{outline:0}
+#inp:disabled::placeholder{color:var(--mut);opacity:.7}
+.tools{display:flex;gap:12px;color:var(--ink);align-items:center}
+#imgbtn{border:0;background:transparent;padding:0;cursor:pointer;display:grid;color:var(--ink)}
+#imgbtn.act{color:var(--brand);animation:pl2 1.2s infinite;border-radius:6px}
+@keyframes pl2{50%{opacity:.45}}
+#send{border:0;background:transparent;color:var(--brand);font-weight:700;font-size:14.5px;cursor:pointer;display:none;padding:0}
+.ig-bar.typed #send{display:block}.ig-bar.typed .tools{display:none}
+/* console */
+.console{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.c-h{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.c-h h3{font-size:20px}
+.c-h small{display:block;color:var(--mut);font-size:13px;font-weight:500;letter-spacing:0;margin-top:3px}
+.biz{display:flex;gap:6px;flex-wrap:wrap}
+.biz span{font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+.biz .a{background:var(--brand-soft);color:var(--brand);border-color:transparent}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:16px;background:var(--bg)}
+.kpis .kpi:last-child:nth-child(odd){grid-column:1/-1}
+@media(min-width:720px){.kpis{grid-template-columns:repeat(5,1fr)}.kpis .kpi:last-child:nth-child(odd){grid-column:auto}.kpi{padding:12px}.kpi .l{font-size:11.5px}}
+.kpi{background:var(--card);border:1.5px solid var(--line);border-radius:16px;text-align:left;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:transform .15s,border-color .15s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi.on{border-color:var(--kc)}
+.kpi .ch{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--ks);color:var(--kc)}
+.kpi .l{font-size:12px;font-weight:600;color:var(--mut)}
+.kpi .n{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.kpi .t{display:flex;justify-content:space-between;align-items:center}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--c-alert);animation:pl 1.2s infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c-alert) 55%,transparent)}100%{box-shadow:0 0 0 10px transparent}}
+#list{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:360px;background:var(--bg);border-top:1px solid var(--line)}
+.empty{margin:auto;text-align:center;color:var(--mut);padding:50px 16px;font-weight:500}
+.empty .ic{display:block;margin:0 auto 12px;opacity:.55}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;animation:in .25s ease}
+.rail{width:5px;background:var(--cc);flex:none}
+.card.red{border-color:color-mix(in srgb,var(--c-alert) 55%,var(--line));background:linear-gradient(0deg,var(--card),var(--c-alert-s))}
+.card.ok .rail{background:var(--ok)}.card.no .rail{background:var(--mut)}
+.body{flex:1;padding:15px 17px;min-width:0}
+.hd{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.ttl{font-weight:700;display:flex;gap:9px;align-items:center}
+.code{font-family:var(--mono);font-size:12px;background:var(--line2);padding:2px 8px;border-radius:6px;color:var(--mut)}
+.tm{color:var(--mut);font-size:12px}
+.badge{font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;display:inline-flex;gap:6px;align-items:center;background:var(--cs);color:var(--cc)}
+.red .badge{background:var(--c-alert);color:#fff}.ok .badge{background:var(--ok-soft);color:var(--ok)}.no .badge{background:var(--line2);color:var(--mut)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 18px}
+.kv div{font-size:13.5px;min-width:0}.kv small{display:block;color:var(--mut);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.kv b{font-weight:600;overflow-wrap:anywhere}
+.pics{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.pics figure{margin:0;font-size:11px;font-weight:600;color:var(--mut)}
+.pics img{width:104px;height:104px;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--line);margin-bottom:5px}
+.pics .ic{color:var(--mut)}
+.act{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.act button{display:inline-flex;gap:7px;align-items:center;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:700;border:1px solid var(--line);background:var(--card)}
+.act .y{background:var(--ok);border-color:var(--ok);color:#fff}
+.act .n{color:var(--c-alert);border-color:color-mix(in srgb,var(--c-alert) 50%,var(--line))}
+.rep{display:flex;gap:8px;margin-top:14px}
+.rep input{flex:1;min-width:0;font:inherit;padding:10px 13px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink)}
+.rep input:focus{outline:2px solid var(--brand);outline-offset:-1px}
+.rep button{display:inline-flex;gap:7px;align-items:center;border:0;background:var(--brand);color:#fff;border-radius:11px;padding:10px 16px;cursor:pointer;font-weight:700}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:999px;cursor:pointer;color:var(--mut)}
+.chip:hover{border-color:var(--brand);color:var(--ink)}
+.sent{margin-top:12px;font-size:13px;color:var(--ok);display:flex;gap:7px;align-items:flex-start;font-weight:500}
+
+.b.bcard{padding:0;overflow:hidden;max-width:80%}
+.ct{padding:9px 14px}
+.mbtn{display:flex;gap:7px;align-items:center;justify-content:center;width:100%;border:0;border-top:1px solid color-mix(in srgb,var(--ink) 12%,transparent);background:transparent;color:var(--brand);font-weight:700;font-size:14.5px;padding:12px;cursor:pointer}
+.mbtn:hover{background:color-mix(in srgb,var(--brand) 8%,transparent)}
+.mbtn.done{color:var(--ok);cursor:default;background:transparent}
+.endbar{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;flex-wrap:wrap;color:var(--mut);font-weight:600;font-size:14px}
+.endbar[hidden]{display:none}
+.cta{border:0;background:var(--brand);color:#fff;font-weight:700;padding:10px 18px;border-radius:12px;cursor:pointer}
+.sheet-wrap{position:absolute;inset:0;z-index:5}
+.scrim{position:absolute;inset:0;background:rgba(5,8,20,.45);animation:fade .2s}
+.sheet{position:absolute;left:0;right:0;bottom:0;top:54px;background:var(--card);border-radius:26px 26px 0 0;display:flex;flex-direction:column;animation:up .3s ease;box-shadow:0 -10px 40px rgba(0,0,0,.3)}
+.sheet-wrap.out .sheet{animation:down .22s forwards}
+.sheet-wrap.out .scrim{animation:fade .22s reverse forwards}
+@keyframes up{from{transform:translateY(100%)}}
+@keyframes down{to{transform:translateY(100%)}}
+@keyframes fade{from{opacity:0}}
+.sh-h{padding:9px 18px 4px}
+.grab{display:block;width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 12px}
+.sh-t{display:flex;justify-content:space-between;align-items:center}
+.sh-t b{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.sh-x{border:0;background:var(--line2);border-radius:50%;width:34px;height:34px;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.sh-b{flex:1;overflow-y:auto;padding:10px 18px 18px}
+.sh-n{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--mut);background:var(--bg);border-radius:11px;padding:10px 12px;margin:0 0 16px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:15px 10px}
+.f{grid-column:1/-1;min-width:0}.f.half{grid-column:auto}
+.f label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
+.f label i{color:var(--c-alert);font-style:normal;margin-left:3px}
+.f input,.f textarea{width:100%;font:inherit;font-size:14.5px;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:none}
+.f input:focus,.f textarea:focus{outline:0;border-color:var(--brand);background:var(--card)}
+.er{color:var(--c-alert);font-size:12px;margin-top:5px;font-weight:600}
+.er:empty{display:none}
+.chs{display:flex;flex-wrap:wrap;gap:7px}
+.opt{display:inline-flex;gap:8px;align-items:center;border:1.5px solid var(--line);background:var(--bg);padding:8px 12px;border-radius:12px;cursor:pointer;font-weight:600;font-size:13.5px;color:var(--ink)}
+.opt .box{width:18px;height:18px;border-radius:6px}
+.opt.on{border-color:var(--brand);background:var(--brand-soft)}
+.opt.on .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.drop{width:100%;border:1.5px dashed var(--line);background:var(--bg);border-radius:14px;padding:13px;display:flex;align-items:center;gap:12px;cursor:pointer;color:var(--mut);font-weight:600;font-size:13.5px;text-align:left}
+.drop img{width:52px;height:52px;object-fit:cover;border-radius:10px}
+.drop.has{border-style:solid;border-color:var(--brand);color:var(--ink)}
+.lnk{border:0;background:transparent;color:var(--brand);font-weight:600;font-size:12.5px;padding:7px 0 0;cursor:pointer}
+.sh-f{padding:12px 18px 20px;border-top:1px solid var(--line2);background:var(--card)}
+.submit{width:100%;border:0;border-radius:14px;padding:14px;background:linear-gradient(160deg,#7b5cff,#3f8cff);color:#fff;font-weight:700;font-size:15px;display:flex;gap:8px;align-items:center;justify-content:center;cursor:pointer}
+.tot{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.tot label{display:block;font-size:12.5px;font-weight:700;margin-bottom:8px}
+.totrow{display:flex;gap:8px;flex-wrap:wrap}
+.totrow input{flex:1;min-width:120px;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink)}
+.totrow input:focus{outline:0;border-color:var(--brand)}
+.totrow button{display:inline-flex;gap:7px;align-items:center;border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700;border:1px solid var(--line);background:var(--card)}
+.totrow .y{background:var(--ok);border-color:var(--ok);color:#fff}
+.totrow .n{color:var(--c-alert);border-color:color-mix(in srgb,var(--c-alert) 50%,var(--line))}
+.hero label.chk{cursor:pointer}
+.hero label.chk input{width:16px;height:16px;padding:0;accent-color:#fff}
+.console{position:relative}
+.toast{position:absolute;top:12px;right:12px;z-index:6;display:flex;gap:10px;align-items:flex-start;max-width:290px;background:var(--ink);color:var(--card);border-radius:14px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.3);animation:tin .3s ease}
+.toast .tic{width:30px;height:30px;border-radius:9px;background:var(--c-alert);color:#fff;display:grid;place-items:center;flex:none}
+.toast b{display:block;font-size:13px}.toast small{font-size:12.5px;opacity:.85}
+@keyframes tin{from{opacity:0;transform:translateY(-8px)}}
+.convs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:16px}
+.convs small{color:var(--mut);font-weight:600;font-size:12px}
+.cv{border:1.5px solid var(--line);background:var(--card);padding:7px 13px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;display:inline-flex;gap:7px;align-items:center;color:var(--ink)}
+.cv.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.cv:disabled{opacity:.5;cursor:not-allowed}
+.cv .ud{width:8px;height:8px;border-radius:50%;background:var(--c-alert);display:inline-block}
+/* plan */
+#plan{display:none}
+.sec{margin-top:54px}
+.sec>h2{font-size:28px;margin-bottom:8px}
+.sec>.sub{color:var(--mut);margin:0 0 22px;max-width:700px;font-size:16px}
+.two{display:grid;gap:16px}@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
+.three{display:grid;gap:16px}@media(min-width:860px){.three{grid-template-columns:repeat(3,1fr)}}
+.four{display:grid;gap:14px}@media(min-width:720px){.four{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.four{grid-template-columns:repeat(4,1fr)}}
+.pn{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 1px 2px rgba(13,19,48,.03)}
+.pn h3{font-size:19px;margin:14px 0 8px}
+.pn p{margin:0;font-size:14.5px;color:var(--mut)}
+.pn ul{margin:0;padding:0;list-style:none}
+.pn li{display:flex;gap:10px;margin:9px 0;font-size:14.5px}
+.pn li .ic{color:var(--ok);margin-top:3px}
+.ibox{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--ks,var(--brand-soft));color:var(--kc,var(--brand))}
+.k1{--kc:var(--c-order);--ks:var(--c-order-s)}.k2{--kc:var(--c-swap);--ks:var(--c-swap-s)}.k3{--kc:var(--c-alert);--ks:var(--c-alert-s)}.k4{--kc:var(--c-stat);--ks:var(--c-stat-s)}
+.pipe{display:grid;gap:10px;margin-top:30px;position:relative}
+@media(min-width:900px){.pipe{grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:stretch}}
+.node{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:16px;backdrop-filter:blur(6px)}
+.node .ibox{background:rgba(255,255,255,.2);color:#fff;width:38px;height:38px;border-radius:11px}
+.node b{display:block;margin-top:10px;font-size:15px}
+.node span{display:block;font-size:13px;color:rgba(255,255,255,.78);margin-top:2px}
+.arr{display:grid;place-items:center;color:rgba(255,255,255,.7)}
+@media(max-width:899px){.arr{transform:rotate(90deg);height:18px}}
+.steps{display:grid;gap:16px;position:relative}
+@media(min-width:860px){.steps{grid-template-columns:repeat(3,1fr)}.steps::before{content:"";position:absolute;left:8%;right:8%;top:26px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px)}}
+.st{position:relative}
+.st .no{width:54px;height:54px;border-radius:50%;background:var(--hero);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(79,70,229,.35);position:relative;z-index:1}
+.st .pn{margin-top:-14px;padding-top:30px}
+.st h3{margin-top:0!important}
+.st .g{font-size:13px;color:var(--brand);font-weight:700;margin-bottom:10px}
+.st ul{padding-left:18px!important}.st li{display:list-item!important;margin:5px 0!important}
+.scroll{overflow-x:auto;border-radius:18px;border:1px solid var(--line);background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:620px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+.rec{display:flex;gap:12px;align-items:flex-start;background:var(--brand-soft);border-radius:16px;padding:16px 18px;margin-top:14px;font-size:14.5px;font-weight:500}
+.rec .ic{color:var(--brand);margin-top:2px}
+footer{max-width:1200px;margin:0 auto;padding:0 20px 40px;color:var(--mut);font-size:12px}
+
+/* ===== Identiteti vizual v2: letër, bojë, smerald ===== */
+:root{
+  --bg:#f3f1ea;--card:#fffdf8;--ink:#15181a;--mut:#666b72;--line:#e2ded2;--line2:#edeadf;
+  --brand:#0f6b57;--brand2:#0f6b57;--brand-soft:#e0eee8;
+  --c-order:#0f6b57;--c-order-s:#e0eee8;--c-swap:#2a5cc2;--c-swap-s:#e3eaf9;--c-alert:#d0382c;--c-alert-s:#fbe5e2;--c-stat:#b0701a;--c-stat-s:#f7ebd3;
+  --ok:#14804f;--ok-soft:#dcf0e6;--ig-in:#efefef;--ig-in-ink:#15181a;--bezel:#101312;
+  --shadow:0 1px 0 rgba(21,24,26,.04),0 10px 30px rgba(21,24,26,.07);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --hero:#15181a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1110;--card:#151b19;--ink:#ecefe9;--mut:#9aa39c;--line:#262e2b;--line2:#1d2421;
+  --brand:#49c19c;--brand2:#49c19c;--brand-soft:#12332a;
+  --c-order:#49c19c;--c-order-s:#12332a;--c-swap:#7ea6f5;--c-swap-s:#16213c;--c-alert:#ff7d70;--c-alert-s:#3a1916;--c-stat:#e3a64b;--c-stat-s:#35270d;
+  --ok:#49c19c;--ok-soft:#0f2f25;--ig-in:#222927;--ig-in-ink:#ecefe9;--bezel:#050706;--hero:#1b2220}}
+:root[data-theme="dark"]{
+  --bg:#0d1110;--card:#151b19;--ink:#ecefe9;--mut:#9aa39c;--line:#262e2b;--line2:#1d2421;
+  --brand:#49c19c;--brand2:#49c19c;--brand-soft:#12332a;
+  --c-order:#49c19c;--c-order-s:#12332a;--c-swap:#7ea6f5;--c-swap-s:#16213c;--c-alert:#ff7d70;--c-alert-s:#3a1916;--c-stat:#e3a64b;--c-stat-s:#35270d;
+  --ok:#49c19c;--ok-soft:#0f2f25;--ig-in:#222927;--ig-in-ink:#ecefe9;--bezel:#050706;--hero:#1b2220}
+.screen{--brand:#0a78e8;--brand-soft:#e5f1fd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .screen{--brand:#4da3ff;--brand-soft:#14263d}}
+:root[data-theme="dark"] .screen{--brand:#4da3ff;--brand-soft:#14263d}
+body{font-feature-settings:"cv11","ss01";letter-spacing:-.005em}
+h1,h2,h3{letter-spacing:-.02em}
+.hero h1,.sec>h2,.c-h h3{font-family:var(--serif);font-weight:500;letter-spacing:-.025em;line-height:1.08}
+.sec>h2{font-size:32px}
+.pn h3,.st h3{font-weight:700}
+/* sipër */
+.top{background:color-mix(in srgb,var(--bg) 90%,transparent)}
+.logo{border-radius:9px;background:var(--ink);color:var(--card);font-family:var(--serif);font-weight:600;font-size:19px;box-shadow:none;position:relative}
+.logo::after{content:"";position:absolute;right:-3px;bottom:-3px;width:11px;height:11px;border-radius:50%;background:var(--brand);border:2px solid var(--bg)}
+.seg{border-radius:10px;border:1px solid var(--line);background:transparent}
+.seg button{border-radius:7px}
+.seg button.on{background:var(--ink);color:var(--card);box-shadow:none}
+/* hero */
+.hero{background:var(--hero);border-radius:18px;padding:44px 40px;border:1px solid color-mix(in srgb,#fff 8%,transparent);
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px;background-position:-1px -1px}
+.hero::before{width:auto;height:3px;left:0;right:auto;top:0;width:120px;border-radius:0;background:var(--brand);filter:none}
+.hero::after{display:none}
+.hero .eyebrow,.eyebrow{border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,.28);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.85);padding:5px 10px}
+.hero h1{font-size:clamp(30px,4.6vw,50px);max-width:800px}
+.hero p{color:rgba(255,255,255,.72)}
+.hero input{border-radius:8px;background:rgba(255,255,255,.08)}
+.btn{border-radius:8px;background:transparent}
+.hero label.chk input{accent-color:var(--brand)}
+/* forma */
+.phone{border-radius:46px;box-shadow:0 24px 50px rgba(21,24,26,.25)}
+.console{border-radius:16px}
+.kpis{background:var(--bg)}
+.kpi{border-radius:12px;border-width:1px}
+.kpi.on{border-color:var(--kc);box-shadow:inset 0 -3px 0 var(--kc)}
+.kpi .ch{border-radius:8px}
+.kpi .n{font-variant-numeric:tabular-nums}
+.card{border-radius:12px}
+.rail{width:4px}
+.act button,.rep button,.rep input,.totrow button,.totrow input{border-radius:8px}
+.act .y,.totrow .y{background:var(--ok)}
+.rep button{background:var(--ink);color:var(--card)}
+.chip{border-radius:8px}
+.biz span{border-radius:6px}
+.biz .a{background:var(--ink);color:var(--card)}
+.cv{border-radius:8px}
+.cv.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.cta{background:var(--ink);color:var(--card);border-radius:10px}
+/* plani */
+.pn{border-radius:14px;box-shadow:none}
+.ibox{border-radius:10px}
+.node{border-radius:12px;backdrop-filter:none;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+.node .ibox{background:rgba(255,255,255,.12);border-radius:8px}
+.st .no{border-radius:12px;background:var(--ink);color:var(--card);box-shadow:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:600;width:48px;height:48px}
+.st .g{color:var(--brand)}
+.scroll{border-radius:12px}
+th{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em}
+.rec{border-radius:12px;background:var(--brand-soft);border-left:3px solid var(--brand)}
+.rec .ic{color:var(--brand)}
+.sheet{border-radius:22px 22px 0 0}
+.f input,.f textarea,.opt,.drop,.tot{border-radius:10px}
+.toast{border-radius:10px}
+.grid>*{min-width:0}
+html,body{overflow-x:hidden}
+@media(max-width:560px){
+ .brand small{display:none}.brand b{font-size:15px;white-space:nowrap}
+ .top-in{padding:10px 14px;gap:8px}.logo{width:32px;height:32px}
+ .seg button{padding:7px 10px;font-size:13px;white-space:nowrap}.seg button .ic{display:none}
+ main{padding:14px 14px 60px}
+ .hero{padding:28px 22px;border-radius:14px}
+ .screen{height:660px}
+}
+.submit{background:var(--brand)!important;border-radius:10px!important}
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <div class="brand"><div class="logo">C</div><div><b>Coco Mama Kids</b><small>Asistenti i inbox-it</small></div></div>
+  <div class="seg"><button id="n1" class="on" data-ic-l="chat">Demo live</button><button id="n2" data-ic-l="layers">Plani i punës</button></div>
+</div></div>
+
+<main>
+<section id="demo">
+  <div class="hero">
+    <span class="eyebrow" data-ic-l="bolt">Demo interaktive</span>
+    <h1>Provoni si klient. Shikoni çfarë merr ekipi.</h1>
+    <p>Majtas është biseda në Instagram DM. Djathtas është paneli ku mbërrin çdo kërkesë, e plotë dhe e renditur.</p>
+    <div class="ctrl"><label>Emri që del në bisedë <input id="nm" value="Era"></label><label class="chk"><input type="checkbox" id="off"> Simulo jashtë orarit të punës</label><button class="btn" id="rs" data-ic-l="reset">Fillo përsëri</button></div>
+  </div>
+  <div class="grid">
+    <div class="phone-col"><div class="phone"><div class="screen">
+      <div class="sb"><span id="clk">9:41</span><span><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x="1" y="1" width="21" height="10" rx="3"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+      <div class="ig-h"><span class="back" data-ic="chevL"></span><div class="av"><i>C</i></div><div class="nm"><b>Coco Mama Kids</b><small>cocomamakids</small></div><div class="r"><span data-ic="phone"></span><span data-ic="video"></span></div></div>
+      <div id="chat"></div>
+      <div id="pills"></div>
+      <div class="ig-bar" id="bar"><div class="cam" data-ic="camera"></div><input id="inp" placeholder="Mesazh..." disabled><div class="tools"><span data-ic="mic"></span><span data-ic="image"></span><span data-ic="smile"></span></div><button id="send" type="button">Dërgo</button></div>
+    </div></div><div class="convs" id="convs"></div><div class="endbar" id="endbar" hidden><span>Biseda përfundoi.</span><button class="cta" id="again" type="button">Provo një rrugë tjetër</button></div></div>
+    <div class="console">
+      <div class="c-h"><div><h3>Paneli i ekipit<small>Të gjitha kërkesat nga inbox-i, në një vend. Pamje e synuar (opsioni B).</small></h3></div>
+        <div class="biz"><span class="a">Coco Mama Kids</span><span>Biznesi 2 · për t’u vlerësuar</span><span>Biznesi 3 · për t’u vlerësuar</span></div></div>
+      <div class="kpis" id="kpis"></div>
+      <div id="list"></div>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="hero">
+    <span class="eyebrow" data-ic-l="layers">Plani i punës</span>
+    <h1>Një asistent që merr përsipër pjesën e përsëritur. Ekipi vendos për gjithçka tjetër.</h1>
+    <p>Klienti merr përgjigje të menjëhershme dhe personale në Instagram. Ekipi merr kërkesa të plota, pa kërkuar nëpër mesazhe. Çmimet mbeten te postimet, siç e keni mbajtur deri tani.</p>
+    <div class="pipe">
+      <div class="node"><div class="ibox" data-ic="chat"></div><b>Klienti</b><span>Shkruan në Instagram DM</span></div>
+      <div class="arr" data-ic="arrow"></div>
+      <div class="node"><div class="ibox" data-ic="bolt"></div><b>Asistenti</b><span>Merr të dhënat dhe konfirmon automatikisht</span></div>
+      <div class="arr" data-ic="arrow"></div>
+      <div class="node"><div class="ibox" data-ic="layers"></div><b>Paneli</b><span>Porosi, ndërrime, alarme, status</span></div>
+      <div class="arr" data-ic="arrow"></div>
+      <div class="node"><div class="ibox" data-ic="user"></div><b>Ekipi</b><span>Konfirmon, përgjigjet, vendos</span></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Kush çfarë bën</h2><p class="sub">Ndarja e rolit është e qartë dhe ekipi mbetet gjithmonë i përfshirë.</p>
+    <div class="two">
+      <div class="pn"><div class="ibox k1" data-ic="bolt"></div><h3>Automatikisht</h3><ul>
+        <li data-ic-l="check">Përshëndetje personale dhe meny me 5 opsione</li>
+        <li data-ic-l="check">Marrja e porosisë me të gjitha të dhënat dhe fotot</li>
+        <li data-ic-l="check">Konfirmimi me përmbledhje dhe kod porosie</li>
+        <li data-ic-l="check">Formulari i ndërrimit me të dyja fotot dhe arsyen</li>
+        <li data-ic-l="check">Informimi për afatin e dorëzimit dhe për shumën totale kur klienti shkruan pyetje</li>
+        <li data-ic-l="check">Regjistrimi i çdo kërkese në panel</li></ul></div>
+      <div class="pn"><div class="ibox k4" data-ic="user"></div><h3>Me ekipin</h3><ul>
+        <li data-ic-l="check">Konfirmimi i porosisë me shumën totale për pagesë, dhe konfirmimi ose refuzimi i ndërrimeve</li>
+        <li data-ic-l="check">Çdo klient që kërkon të flasë me një person, me alarm prioritar</li>
+        <li data-ic-l="check">Statusi i postës: përgjigje e shkruar nga ekipi</li>
+        <li data-ic-l="check">Mesazhet e lira që klienti shkruan vetë</li>
+        <li data-ic-l="check">Rastet e veçanta dhe ankesat</li></ul></div>
+    </div></div>
+
+  <div class="sec"><h2>Rrugët e klientit</h2><p class="sub">Çdo bisedë nis me të njëjtën meny dhe përfundon me një veprim të qartë. Klienti ka gjithmonë edhe opsionin e pestë: të shkruajë një mesazh të lirë, që shkon direkt te ekipi.</p>
+    <div class="four">
+      <div class="pn"><div class="ibox k1" data-ic="bag"></div><h3>Porosi</h3><p>Një buton në bisedë hap një formular të shkurtër: emër, mbiemër, telefon, adresë, madhësi, kg, foto, shënim. Pas konfirmimit klienti merr mesazhin e falënderimit dhe porosia hyn te Porosi.</p></div>
+      <div class="pn"><div class="ibox k2" data-ic="swap"></div><h3>Ndërrim</h3><p>Kodi i porosisë, të dhënat, foto e produktit të kthyer, arsyeja, foto e produktit të ri, madhësia. Hyn te Ndërrime, ekipi konfirmon ose jo.</p></div>
+      <div class="pn"><div class="ibox k3" data-ic="bell"></div><h3>Flas me ekipin</h3><p>Alarm i kuq me prioritet për ekipin, i cili përgjigjet direkt në bisedë.</p></div>
+      <div class="pn"><div class="ibox k4" data-ic="box"></div><h3>Statusi i postës</h3><p>Kërkesa shkon te ekipi, i cili shkruan vetë përgjigjen. Procesi i postës është i ndërlikuar dhe nuk e automatizojmë.</p></div>
+    </div></div>
+
+  <div class="sec"><h2>Fazat e punës</h2><p class="sub">Nisim i thjeshtë dhe zgjerojmë vetëm pasi çdo hap të funksionojë.</p>
+    <div class="steps">
+      <div class="st"><div class="no">01</div><div class="pn"><h3>Themeli</h3><div class="g">Coco Mama Kids</div><ul>
+        <li>Menuja dhe katër rrugët</li><li>Porosi dhe ndërrime me të dhënat e plota</li><li>Ruajtje në tabelë dhe njoftim për alarmet</li><li>Orari i ekipit dhe mesazhi jashtë orarit</li><li>Testim me ekipin</li></ul></div></div>
+      <div class="st"><div class="no">02</div><div class="pn"><h3>Paneli</h3><div class="g">Puna e përditshme e ekipit</div><ul>
+        <li>Dritaret Porosi, Ndërrime, Alarme, Statusi</li><li>Konfirmim dhe përgjigje nga paneli</li><li>Kërkim sipas kodit të porosisë</li><li>Fotot krah për krah për ndërrimet</li></ul></div></div>
+      <div class="st"><div class="no">03</div><div class="pn"><h3>Zgjerimi</h3><div class="g">Të tre bizneset</div><ul>
+        <li>Vlerësim i nevojave të biznesit 2 dhe 3 para ndërtimit</li><li>Përshtatje e sistemit për secilin biznes</li><li>Një panel i vetëm me ndarje sipas biznesit, nëse zgjidhet opsioni B</li></ul></div></div>
+    </div></div>
+
+  <div class="sec"><h2>Dy mënyra për ta ndërtuar</h2><p class="sub">Vendimi varet nga shpejtësia që dëshironi dhe sa kontroll doni mbi panelin.</p>
+    <div class="scroll"><table>
+      <tr><th></th><th>A. Mjete të gatshme</th><th>B. Panel i personalizuar</th></tr>
+      <tr><td>Si funksionon</td><td>ManyChat për automatizimin në Instagram, Google Sheets si databazë</td><td>Paneli i demos, i lidhur me databazë dhe Instagram</td></tr>
+      <tr><td>Shpejtësia</td><td>Më e shpejtë për të filluar</td><td>Kërkon më shumë kohë ndërtimi</td></tr>
+      <tr><td>Pamja për ekipin</td><td>Tabelë e thjeshtë</td><td>Panel vizual me alarme, foto krah për krah, konfirmim me një klik</td></tr>
+      <tr><td>Kontrolli</td><td>I kufizuar nga mjetet</td><td>I plotë, përshtatet me procesin tuaj</td></tr>
+    </table></div>
+    <div class="rec" data-ic-l="info"><div>Paneli në demo tregon opsionin B, versionin e synuar. Rekomandimi: nisim me A për Coco Mama Kids, ku ekipi punon në një tabelë me të njëjtat të dhëna, dhe vendosim për B pasi ta shihni sa ndihmon në praktikë.</div></div>
+  </div>
+
+  <div class="sec"><h2>Rastet e veçanta</h2><p class="sub">Çfarë ndodh kur diçka del jashtë rrjedhës normale.</p>
+    <div class="two">
+      <div class="pn"><ul>
+        <li data-ic-l="check">Kod porosie i gabuar: asistenti e kontrollon dhe kërkon kodin e saktë.</li>
+        <li data-ic-l="check">Porosi e përsëritur: ekipi njoftohet kur të dhënat përputhen me një porosi të mëparshme.</li>
+        <li data-ic-l="check">Produkt pa stok: ekipi kontakton klientin gjatë konfirmimit. Stoku nuk lidhet automatikisht në Fazën 1.</li></ul></div>
+      <div class="pn"><ul>
+        <li data-ic-l="check">Jashtë orarit të punës: klienti njoftohet kur do të marrë përgjigje.</li>
+        <li data-ic-l="check">Pyetje ose mesazh i papritur: shkon te dritarja Mesazhe, bashkë me rregullin bazë të dorëzimit.</li>
+        <li data-ic-l="check">Klient që pyet nëse flet me sistem automatik: merr përgjigje të sinqertë dhe mund të kalojë te një përfaqësues.</li></ul></div>
+    </div></div>
+
+  <div class="sec"><h2>Fushëveprimi</h2><p class="sub">Çfarë përfshihet në fazën e parë dhe çfarë mbetet për më vonë.</p>
+    <div class="two">
+      <div class="pn"><h3 style="margin-top:0">Përfshihet në Fazën 1</h3><ul>
+        <li data-ic-l="check">Menuja me pesë opsione</li>
+        <li data-ic-l="check">Formularët e porosisë, ndërrimit dhe statusit</li>
+        <li data-ic-l="check">Konfirmimi i porosisë nga ekipi me shumën totale</li>
+        <li data-ic-l="check">Alarmi dhe njoftimi për ekipin</li>
+        <li data-ic-l="check">Mesazhi jashtë orarit</li>
+        <li data-ic-l="check">Testimi me ekipin dhe udhëzimet e përdorimit</li></ul></div>
+      <div class="pn"><h3 style="margin-top:0">Nuk përfshihet, përveç nëse bihet dakord</h3><ul>
+        <li data-ic-l="x">Lidhja automatike me stokun</li>
+        <li data-ic-l="x">Bizneset 2 dhe 3</li>
+        <li data-ic-l="x">Paneli i personalizuar (opsioni B)</li>
+        <li data-ic-l="x">Përgjigje automatike për pyetjet e lira: i lexon dhe i përgjigjet ekipi</li></ul></div>
+    </div>
+    <div class="rec" data-ic-l="clock" style="margin-top:16px"><div>Afati i punës përcaktohet pas takimit, sipas mënyrës që zgjidhet (A ose B) dhe pas aprovimit nga Meta.</div></div></div>
+
+  <div class="sec"><h2>Çfarë na duhet nga ju</h2>
+    <div class="three">
+      <div class="pn"><div class="ibox k1" data-ic="shield"></div><h3>Qasje</h3><p>Llogaria Instagram Professional e lidhur me një Faqe Facebook për çdo biznes.</p></div>
+      <div class="pn"><div class="ibox k2" data-ic="chat"></div><h3>Shembuj realë</h3><p>10 deri 20 mesazhe tipike nga klientët dhe toni që përdorni me ta.</p></div>
+      <div class="pn"><div class="ibox k4" data-ic="sheet"></div><h3>Rregullat tuaja</h3><p>Formati i kodit të porosisë, madhësitë, orari i ekipit dhe kush nga ekipi merr alarmet.</p></div>
+    </div></div>
+
+  <div class="sec"><h2>Gjëra që duhen thënë hapur</h2>
+    <div class="two">
+      <div class="pn"><ul>
+        <li data-ic-l="clock">Instagram lejon përgjigje automatike brenda 24 orëve nga mesazhi i fundit i klientit. Përtej kësaj ka kufizime nga Meta, që i verifikojmë gjatë ndërtimit.</li>
+        <li data-ic-l="shield">Të dhënat personale (emri, telefoni, adresa) mblidhen vetëm për porosinë, me pëlqimin e klientit, dhe i sheh vetëm ekipi. Ku ruhen dhe sa kohë mbahen e përcaktojmë së bashku, sipas ligjit për mbrojtjen e të dhënave personale.</li>
+        <li data-ic-l="bell">Alarmet njoftohen edhe jashtë panelit (WhatsApp ose email), që të mos humbasin.</li></ul></div>
+      <div class="pn"><ul>
+        <li data-ic-l="info">Lidhja me Instagram kërkon aprovim nga Meta për aplikacionin, që mund të marrë kohë.</li>
+        <li data-ic-l="user">Asistenti prezantohet me emër dhe flet personalisht, por përgjigjet ndershmërisht nëse klienti pyet nëse flet me sistem automatik.</li>
+        <li data-ic-l="info">Instagram DM nuk ka formular brenda bisedës. Butoni hap një faqe të shkurtër në browser-in e vetë Instagramit dhe klienti kthehet në bisedë pas dërgimit.</li>
+        <li data-ic-l="info">Ky demo është simulim me të dhëna fiktive. Afati dhe investimi precizohen pas vendimit për fazat.</li></ul></div>
+    </div></div>
+</section>
+</main>
+<footer>Demo e simuluar. Të dhënat që futen këtu nuk ruhen askund.</footer>
+
+<script>
+const I={
+bag:'<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 016 0"/>',
+swap:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>',
+bell:'<path d="M6 16v-5a6 6 0 1112 0v5l1.5 2h-15L6 16z"/><path d="M10 21h4"/>',
+box:'<path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
+send:'<path d="M4 12l16-8-6 16-3-7-7-1z"/>',
+check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
+x:'<path d="M6 6l12 12M18 6L6 18"/>',
+image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/>',
+chat:'<path d="M4 5h16v11H9l-5 4V5z"/>',
+arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+layers:'<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>',
+sheet:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/>',
+bolt:'<path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/>',
+info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>',
+reset:'<path d="M4 4v6h6"/><path d="M5.5 15a8 8 0 102-8L4 10"/>',
+inbox:'<path d="M3 13l3-8h12l3 8v6H3v-6z"/><path d="M3 13h5l1 3h6l1-3h5"/>',
+chevL:'<path d="M15 5l-7 7 7 7"/>',
+phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
+video:'<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3"/>',
+camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/>',
+mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>',
+smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.5 2.3 2 4 2s3-.5 4-2M9 9.5v.01M15 9.5v.01"/>',
+edit:'<path d="M4 20h4L19 9l-4-4L4 16v4z"/>'};
+const ic=(n,s)=>'<svg class="ic" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[n]+'</svg>';
+document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=ic(e.dataset.ic,e.classList.contains('ibox')?22:e.classList.contains('arr')?22:e.classList.contains('cam')?18:22));
+document.querySelectorAll('[data-ic-l]').forEach(e=>e.insertAdjacentHTML('afterbegin',ic(e.dataset.icL,16)+' '));
+const $=s=>document.querySelector(s),chat=$('#chat'),pills=$('#pills'),screen=$('.screen'),inp=$('#inp'),bar=$('#bar'),sendB=$('#send');
+let onSend=null;
+let S=0,seq=1000,tab='orders',persona='Era',last='';
+const POOL=['@arta.m','@eni.k','@mira.s','@elda.p','@xhesi.b','@lira.d'];
+let convs=[],cur=null,viewId=null,cidN=0;
+const store={orders:[],swaps:[],alerts:[],status:[],messages:[]};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const stamp=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false});
+const ph=c=>'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><rect width="240" height="240" fill="'+c+'"/><g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".85"><rect x="66" y="72" width="108" height="96" rx="10"/><circle cx="98" cy="106" r="11"/><path d="M174 150l-34-34-54 52"/></g></svg>');
+$('#clk').textContent=stamp();
+function fixLast(){const l=chat.lastElementChild;last=l&&l.classList.contains('in')?'in':(l&&l.classList.contains('me')?'me':'')}
+function line(side,inner,cls){const r=el('div','row '+side);
+ if(side==='in'){if(last==='in')r.appendChild(el('div','sp'));else r.appendChild(el('div','sm','<i>'+esc((persona[0]||'C').toUpperCase())+'</i>'))}
+ r.appendChild(el('div','b'+(cls?' '+cls:''),inner));chat.appendChild(r);last=side;chat.scrollTop=chat.scrollHeight;return r}
+async function typed(d){const s=S,ty=line('in','<span class="typing"><i></i><i></i><i></i></span>');ty.querySelector('.b').style.padding='0';await sleep(d);if(s!==S)return new Promise(()=>{});ty.remove();fixLast()}
+async function bot(t,d=850){await typed(d);line('in',esc(t).replace(/\n/g,'<br>'))}
+const me=t=>line('me',esc(t));
+function upd(){bar.classList.toggle('typed',inp.value.trim().length>0&&!inp.disabled)}
+inp.oninput=upd;inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();onSend&&onSend()}};sendB.onclick=()=>onSend&&onSend();
+function lock(){inp.disabled=true;inp.value='';inp.placeholder='Mesazh...';onSend=null;upd()}
+function askText(){return new Promise(res=>{inp.disabled=false;inp.placeholder='Shkruani mesazhin tuaj...';inp.focus({preventScroll:true});onSend=()=>{const v=inp.value.trim();if(!v)return;lock();me(v);res(v)}})}
+const fromStaff=t=>line('in',esc(t).replace(/\n/g,'<br>'));
+function convOf(id){return convs.find(x=>x.id===id)}
+function saveView(){const c=convOf(viewId);if(c)c.html=chat.innerHTML}
+function deliver(cid,text){const c=convOf(cid);if(!c)return;
+ if(c.id===viewId){fromStaff(text)}
+ else{c.html+='<div class="row in"><div class="sm"><i>'+esc((persona[0]||'C').toUpperCase())+'</i></div><div class="b">'+esc(text).replace(/\n/g,'<br>')+'</div></div>';c.unread=true;renderConvs()}}
+function renderConvs(){const w=$('#convs');w.innerHTML='<small>Klientët:</small>';
+ convs.forEach(c=>{const b=el('button','cv'+(c.id===viewId?' on':''),esc(c.handle)+(c.unread?'<i class="ud"></i>':''));b.type='button';b.disabled=!!cur&&!cur.done&&c.id!==viewId;b.onclick=()=>switchTo(c.id);w.appendChild(b)})}
+function switchTo(id){if(!cur||!cur.done||id===viewId)return;const c=convOf(id);if(!c)return;saveView();viewId=id;
+ chat.innerHTML=c.html;pills.innerHTML='';pills.className='';c.unread=false;fixLast();renderConvs()}
+function choose(items){return new Promise(res=>{pills.innerHTML='';pills.className='list';
+ items.forEach(([i,l])=>{const b=el('button','tick','<span class="box">'+ic('check',14)+'</span><span class="lbl">'+esc(l)+'</span><span class="ti">'+ic(i,18)+'</span>');
+  b.onclick=()=>{b.classList.add('on');setTimeout(()=>{pills.innerHTML='';pills.className='';me(l);res(l)},330)};pills.appendChild(b)});
+ chat.scrollTop=chat.scrollHeight})}
+const sizes=['0-3 muaj','3-6 muaj','6-12 muaj','1-2 vjeç','2-3 vjeç','3-4 vjeç'];
+const vTel=v=>/^[+\d][\d\s\-()]{6,}$/.test(v)?'':'Ky numër nuk duket i saktë';
+const knownCodes=()=>['CM-0999'].concat(store.orders.map(o=>o.code));
+const vCode=v=>knownCodes().includes(v.trim().toUpperCase())?'':'Ky kod nuk u gjet. Kontrolloni kodin nga mesazhi i porosisë.';
+const CONSENT={k:'ok',t:'consent',r:1,txt:'Pranoj që të dhënat e mia të përdoren vetëm për përpunimin e kësaj kërkese.'};
+const F_ORDER=[
+ {k:'fn',l:'Emri',r:1,half:1},{k:'ln',l:'Mbiemri',r:1,half:1},
+ {k:'tel',l:'Numri i telefonit',r:1,t:'tel',v:vTel,ph:'069 123 4567'},
+ {k:'ad',l:'Adresa e dërgesës',r:1,ph:'Qyteti, rruga'},
+ {k:'sz',l:'Madhësia',r:1,t:'choice',o:sizes},
+ {k:'kg',l:'Pesha e fëmijës (kg)',t:'number',ph:'p.sh. 9'},
+ {k:'img',l:'Foto e produktit',t:'photo'},
+ {k:'nt',l:'Shënim (opsionale)',t:'area',ph:'Çdo gjë që duhet ta dimë'},
+ CONSENT];
+const F_SWAP=[
+ {k:'code',l:'Kodi i porosisë',r:1,ph:'p.sh. CM-1000',v:vCode,up:1},
+ {k:'fn',l:'Emri',r:1,half:1},{k:'ln',l:'Mbiemri',r:1,half:1},
+ {k:'tel',l:'Numri i telefonit',r:1,t:'tel',v:vTel},
+ {k:'old',l:'Foto e produktit që ndërroni',t:'photo'},
+ {k:'why',l:'Arsyeja',r:1,t:'choice',o:['Madhësi e gabuar','Produkt me defekt','Nuk më pëlqen','Tjetër']},
+ {k:'neu',l:'Foto e produktit të ri',t:'photo'},
+ {k:'sz',l:'Madhësia e re',r:1,t:'choice',o:sizes},
+ CONSENT];
+const F_STAT=[
+ {k:'code',l:'Kodi i porosisë',r:1,ph:'p.sh. CM-1000',v:vCode,up:1},
+ {k:'fn',l:'Emri',r:1,half:1},{k:'ln',l:'Mbiemri',r:1,half:1}];
+function sheet(title,note,F,submit){return new Promise(res=>{
+ const old=$('#sheet');if(old)old.remove();
+ const root=el('div','sheet-wrap');root.id='sheet';
+ const scrim=el('div','scrim'),sh=el('div','sheet');root.append(scrim,sh);
+ const v={},errs={};
+ const err=(f,m)=>{errs[f.k].textContent=m};
+ const close=val=>{root.classList.add('out');setTimeout(()=>root.remove(),230);res(val)};
+ scrim.onclick=()=>close(null);
+ sh.appendChild(el('div','sh-h','<span class="grab"></span><div class="sh-t"><b>'+esc(title)+'</b><button type="button" class="sh-x" aria-label="Mbyll">'+ic('x',18)+'</button></div>'));
+ sh.querySelector('.sh-x').onclick=()=>close(null);
+ const bd=el('div','sh-b');
+ if(note)bd.appendChild(el('p','sh-n',ic('shield',15)+'<span>'+esc(note)+'</span>'));
+ const g=el('div','fg');bd.appendChild(g);
+ F.forEach(f=>{const w=el('div','f'+(f.half?' half':''));if(f.t!=='consent')w.appendChild(el('label','',esc(f.l)+(f.r?'<i>*</i>':'')));let c;
+  if(f.t==='choice'){c=el('div','chs');f.o.forEach(o=>{const t=el('button','opt','<span class="box">'+ic('check',12)+'</span>'+esc(o));t.type='button';t.onclick=()=>{v[f.k]=o;[...c.children].forEach(x=>x.classList.remove('on'));t.classList.add('on');err(f,'')};c.appendChild(t)})}
+  else if(f.t==='consent'){c=el('div','chs');const t=el('button','opt','<span class="box">'+ic('check',12)+'</span><span style="text-align:left">'+esc(f.txt)+'</span>');t.type='button';t.onclick=()=>{const on=!t.classList.contains('on');t.classList.toggle('on',on);v[f.k]=on?'Po':'';err(f,'')};c.appendChild(t)}
+  else if(f.t==='photo'){c=el('div','');const fi=el('input');fi.type='file';fi.accept='image/*';fi.hidden=true;
+   const drop=el('button','drop',ic('image',22)+'<span>Shtoni një foto</span>');drop.type='button';
+   const set=src=>{v[f.k]=src;drop.innerHTML='<img src="'+src+'" alt="">'+'<span>Ndrysho foton</span>';drop.classList.add('has')};
+   drop.onclick=()=>fi.click();fi.onchange=()=>{const fl=fi.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>set(r.result);r.readAsDataURL(fl)};
+   const ex=el('button','lnk','Përdor një foto shembull');ex.type='button';ex.onclick=()=>set(ph(['#4f46e5','#0e9f9a','#e08a00','#e5484d'][(seq+g.children.length)%4]));
+   c.append(fi,drop,ex)}
+  else if(f.t==='area'){c=el('textarea');c.rows=3;c.placeholder=f.ph||'';c.oninput=()=>v[f.k]=c.value.trim()}
+  else{c=el('input');c.type=f.t||'text';if(f.ph)c.placeholder=f.ph;if(f.t==='number')c.inputMode='numeric';c.oninput=()=>{v[f.k]=c.value.trim();err(f,'')}}
+  if(c.tagName==='INPUT'||c.tagName==='TEXTAREA'){c.id='f-'+f.k;const lb=w.querySelector('label');if(lb)lb.htmlFor=c.id}
+  w.appendChild(c);const er=el('div','er');w.appendChild(er);errs[f.k]=er;g.appendChild(w)});
+ sh.appendChild(bd);
+ const ft=el('div','sh-f'),sb=el('button','submit',ic('check',18)+esc(submit));sb.type='button';
+ sb.onclick=()=>{let ok=true;F.forEach(f=>{const val=v[f.k];let m='';if(f.r&&!val)m=f.t==='choice'?'Zgjidhni një opsion':f.t==='consent'?'Ju lutem pranoni për të vazhduar':'Kjo fushë është e detyrueshme';else if(val&&f.v)m=f.v(val);err(f,m);if(m)ok=false});
+  if(!ok){const e=sh.querySelector('.er:not(:empty)');if(e)e.scrollIntoView({block:'center',behavior:'smooth'});return}
+  F.forEach(f=>{if(f.up&&v[f.k])v[f.k]=v[f.k].trim().toUpperCase()});close(Object.assign({},v))};
+ ft.appendChild(sb);sh.appendChild(ft);screen.appendChild(root)})}
+async function formStep(text,label,title,note,F,submit){
+ await typed(900);const s=S;
+ return new Promise(res=>{
+  const r=line('in','<div class="ct">'+esc(text)+'</div><button class="mbtn" type="button">'+esc(label)+'</button>','bcard');
+  const btn=r.querySelector('.mbtn');
+  const open=async()=>{const d=await sheet(title,note,F,submit);if(s!==S)return;if(d){btn.disabled=true;btn.classList.add('done');btn.innerHTML=ic('check',16)+'Formulari u dërgua';res(d)}};
+  btn.onclick=()=>{if(!btn.disabled)open()}})}
+const fmt=n=>Number(n).toLocaleString('de-DE');
+function totBox(o){const w=el('div','tot','<label>Totali që do të paguajë klienti (lekë)</label>');
+ const row=el('div','totrow'),i=el('input'),er=el('div','er');i.type='text';i.inputMode='numeric';i.placeholder='p.sh. 2500';
+ const ok=el('button','y',ic('check',16)+'Konfirmo porosinë'),no=el('button','n','Anulo');
+ const go=()=>{const v=i.value.replace(/[\s.]/g,'');if(!/^\d+$/.test(v)||+v<=0){er.textContent='Shkruani një shumë të vlefshme në lekë';return}
+  const t=fmt(+v);o.state='ok';o.confirming=false;o.lines.push(['Totali për pagesë',t+' lekë']);
+  deliver(o.cid,'Porosia juaj '+o.code+' u konfirmua. Totali për pagesë është '+t+' lekë dhe porosia pritet të dorëzohet brenda 2-3 ditësh. Faleminderit për besimin, '+o.fn+'.');render()};
+ ok.onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};no.onclick=()=>{o.confirming=false;render()};
+ row.append(i,ok,no);w.append(row,er);setTimeout(()=>i.focus(),0);return w}
+function toast(t){const x=el('div','toast','<span class="tic">'+ic('bell',16)+'</span><div><b>Njoftim për stafin</b><small>'+esc(t)+'</small></div>');$('.console').appendChild(x);setTimeout(()=>x.remove(),5200)}
+function add(k,o){o.cid=cur.id;o.handle=cur.handle;o.id=seq++;o.time=stamp();o.state='new';store[k].unshift(o);if(k==='orders')o.code='CM-'+o.id;tab=k;render();if(k==='alerts')toast(o.title)}
+const CAT={orders:['Porosi','bag','--c-order','--c-order-s'],swaps:['Ndërrime','swap','--c-swap','--c-swap-s'],alerts:['Alarme','bell','--c-alert','--c-alert-s'],status:['Statusi','box','--c-stat','--c-stat-s'],messages:['Mesazhe','chat','--brand2','--brand-soft']};
+function render(){
+ const kp=$('#kpis');kp.innerHTML='';
+ Object.keys(CAT).forEach(k=>{const [l,i,c,s]=CAT[k],n=store[k].filter(x=>x.state==='new').length,b=el('button','kpi'+(tab===k?' on':''),'<div class="t"><span class="ch">'+ic(i,18)+'</span>'+(k==='alerts'&&n?'<span class="pulse"></span>':'')+'</div><div><div class="n">'+n+'</div><div class="l">'+esc(l)+'</div></div>');b.style.setProperty('--kc','var('+c+')');b.style.setProperty('--ks','var('+s+')');b.onclick=()=>{tab=k;render()};kp.appendChild(b)});
+ const L=$('#list');L.innerHTML='';const items=store[tab];
+ if(!items.length){L.innerHTML='<div class="empty">'+ic('inbox',38)+'Asnjë kërkesë në këtë dritare.<br>Provoni një rrugë nga biseda majtas.</div>';return}
+ const [,,c,s]=CAT[tab];
+ items.forEach(o=>{
+  const cls='card'+(o.state==='ok'?' ok':'')+(o.state==='no'?' no':'')+(tab==='alerts'&&o.state==='new'?' red':'');
+  const card=el('div',cls,'<div class="rail"></div>');card.style.setProperty('--cc','var('+c+')');card.style.setProperty('--cs','var('+s+')');
+  const bd=el('div','body');card.appendChild(bd);
+  const bt=o.state==='ok'?ic('check',14)+'Konfirmuar':o.state==='no'?'Refuzuar':o.state==='done'?ic('check',14)+'Përgjigjur':(tab==='alerts'?'Prioritet i lartë':'E re');
+  bd.appendChild(el('div','hd','<div class="ttl">'+esc(o.title)+(o.code&&tab==='orders'?'<span class="code">'+o.code+'</span>':'')+'</div><div style="display:flex;gap:10px;align-items:center"><span class="tm">'+o.time+'</span><span class="badge">'+bt+'</span></div>'));
+  bd.appendChild(el('div','kv',o.lines.map(l=>'<div><small>'+esc(l[0])+'</small><b>'+esc(l[1])+'</b></div>').join('')));
+  if(o.pics&&o.pics.some(p=>p[1]))bd.appendChild(el('div','pics',o.pics.filter(p=>p[1]).map(p=>'<figure><img src="'+p[1]+'" alt="'+esc(p[0])+'">'+esc(p[0])+'</figure>').join(o.pics.filter(p=>p[1]).length>1?ic('arrow',22):'')));
+  if((tab==='orders'||tab==='swaps')&&(o.state==='ok'||o.state==='no'))bd.appendChild(el('div','sent',ic('check',16)+'<span>Njoftimi u dërgua te '+esc(o.handle)+'</span>'));
+  if(tab==='orders'||tab==='swaps'){
+   if(o.state==='new'&&o.confirming){bd.appendChild(totBox(o))}else if(o.state==='new'){const a=el('div','act'),y=el('button','y',ic('check',16)+'Konfirmo'),n=el('button','n',ic('x',16)+'Refuzo');
+    y.onclick=()=>{if(tab==='orders'){o.confirming=true;render();return}o.state='ok';deliver(o.cid,'Kërkesa juaj për ndërrim u konfirmua. Do t’ju shkruajmë për hapat e radhës.');render()};
+    n.onclick=()=>{o.state='no';deliver(o.cid,'Kërkesa juaj kërkon pak sqarim. Do t’ju shkruajmë këtu për detajet. Faleminderit për mirëkuptimin.');render()};a.append(y,n);bd.appendChild(a)}
+  }else{
+   if(o.state==='new'){const r=el('div','rep'),i=el('input');i.placeholder=tab==='status'?'Shkruani përgjigjen për statusin':'Përgjigjuni klientit';const sb=el('button','',ic('send',16)+'Dërgo');
+    const go=()=>{const t=i.value.trim();if(!t)return;o.state='done';o.sent=t;deliver(o.cid,t);render()};sb.onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};r.append(i,sb);
+    if(tab==='status'){const ch=el('div','chips');[['Është nisur','Porosia juaj është dërguar dhe pritet të mbërrijë brenda 1-2 ditëve.'],['Në përgatitje','Porosia juaj po përgatitet dhe do të dërgohet së shpejti.'],['Po e kontrollojmë','Kemi kontaktuar postën dhe do t’ju njoftojmë sapo të kemi informacion.']].forEach(([a,t])=>{const b=el('button','chip',esc(a));b.onclick=()=>{i.value=t;i.focus()};ch.appendChild(b)});bd.appendChild(ch)}
+    bd.appendChild(r)}
+   else if(o.sent)bd.appendChild(el('div','sent',ic('check',16)+'<span>Dërguar te '+esc(o.handle)+': '+esc(o.sent)+'</span>'))}
+  L.appendChild(card)})}
+const DELIVERY_DAYS='2-3 ditë';
+async function offHours(){if($('#off').checked)await bot('Ju njoftojmë se aktualisht jemi jashtë orarit të punës. Mund të na lini kërkesën tuaj këtu dhe ekipi do t’ju përgjigjet sapo të nisë dita e punës.',1000)}
+const asksIfBot=m=>/\bAI\b/.test(m)||/robot|chatbot|automat|inteligjenc|\bbot(?![a-zëç])|je njeri|jeni njeri|njeri i vërtetë|person i vërtetë/i.test(m);
+const ruleText=()=>'Para se t\u2019ju përgjigjemi, ju njoftojmë shkurtimisht rregullin bazë: porosia dorëzohet afërsisht '+DELIVERY_DAYS+' pas konfirmimit të saj, dhe shuma totale për pagesë ju njoftohet nga ekipi gjatë konfirmimit të porosisë.';
+async function main(){
+ const my=cur;
+ line('me','Përshëndetje');
+ await bot('Përshëndetje, unë jam '+persona+'. Si mund t’ju ndihmoj?',1000);
+ await offHours();
+ const c=await choose([['bag','Dua të bëj një porosi'],['swap','Dua të ndërroj një produkt'],['chat','Dua të flas me stafin'],['box','Dua të di statusin e porosisë'],['edit','Asnjëra nga këto, dua të shkruaj një mesazh']]);
+ if(c.startsWith('Dua të bëj')){
+  const d=await formStep('Me kënaqësi. Ju lutem plotësoni formularin më poshtë dhe porosia do të regjistrohet menjëherë.','Plotëso porosinë','Formulari i porosisë','Të dhënat përdoren vetëm për dërgesën.',F_ORDER,'Konfirmo porosinë');
+  add('orders',{title:'Porosi e re',fn:d.fn,lines:[['Instagram',cur.handle],['Klienti',d.fn+' '+d.ln],['Telefon',d.tel],['Adresa',d.ad],['Madhësia',d.sz+(d.kg?' / '+d.kg+' kg':'')],['Shënim',d.nt||'Pa shënim'],['Pëlqimi për të dhënat','Pranuar']],pics:[['Produkti',d.img]]});
+  await bot('Faleminderit për porosinë, '+d.fn+'.\n\nKodi i porosisë: '+store.orders[0].code+'\n\nTë dhënat tuaja:\n'+d.fn+' '+d.ln+'\n'+d.tel+'\n'+d.ad+'\nMadhësia: '+d.sz+(d.kg?' ('+d.kg+' kg)':'')+(d.nt?'\nShënim: '+d.nt:'')+'\n\nDo t’ju kontaktojmë së shpejti për ta konfirmuar porosinë. Faleminderit për besimin!',1100);
+ }else if(c.startsWith('Dua të ndërroj')){
+  const d=await formStep('Sigurisht, jemi në dispozicionin tuaj. Ju lutem plotësoni formularin më poshtë dhe do ta marrim kërkesën tuaj menjëherë në shqyrtim.','Plotëso ndërrimin','Formulari i ndërrimit','Të dhënat përdoren vetëm për ndërrimin. Demo: përdorni CM-0999 ose kodin e një porosie që bëtë më parë.',F_SWAP,'Dërgo kërkesën');
+  add('swaps',{title:'Kërkesë ndërrimi',fn:d.fn,lines:[['Instagram',cur.handle],['Porosia',d.code],['Klienti',d.fn+' '+d.ln],['Telefon',d.tel],['Arsyeja',d.why],['Madhësia e re',d.sz],['Pëlqimi për të dhënat','Pranuar']],pics:[['Produkti i kthyer',d.old],['Produkti i ri',d.neu]]});
+  await bot('Faleminderit, '+d.fn+'. Kërkesa juaj për ndërrim u regjistrua me sukses. Do ta shqyrtojmë dhe do t’ju njoftojmë këtu sa më shpejt.',1000);
+ }else if(c.startsWith('Asnjëra')){
+  await bot('Sigurisht. Ju lutem shkruani mesazhin tuaj më poshtë.',800);
+  const m=await askText();
+  const ab=asksIfBot(m);
+  add('messages',{title:'Mesazh i lirë',lines:[['Instagram',cur.handle],['Mesazhi',m],['Info e dërguar','Afati i dorëzimit dhe shuma totale']].concat(ab?[['Shënim','Klienti pyet nëse flet me sistem automatik']]:[])});
+  if(ab)await bot('Jam asistentja automatike e Coco Mama Kids. Mesazhi juaj do të lexohet nga një përfaqësues i ekipit, i cili do t’ju përgjigjet personalisht.',1000);
+  await bot('Faleminderit për mesazhin tuaj. '+ruleText(),1100);
+  await bot('Faleminderit. Mesazhin tuaj e kemi pranuar dhe do t\u2019ju përgjigjemi këtu sa më shpejt të jetë e mundur.',900);
+ }else if(c.includes('flas')){
+  add('alerts',{title:'Klient kërkon të flasë me ekipin',lines:[['Instagram',cur.handle],['Kërkesa','Dëshiron të flasë me një person'],['Prioriteti','I lartë']]});
+  await bot('Sigurisht. Po e përcjell kërkesën tuaj te një përfaqësues, i cili do t’ju përgjigjet këtu sa më shpejt të jetë e mundur.',900);
+ }else{
+  const d=await formStep('Sigurisht. Për t’ju dhënë informacion të saktë mbi porosinë, ju lutem plotësoni të dhënat më poshtë.','Plotëso të dhënat','Statusi i porosisë','Na duhen vetëm kodi i porosisë, emri dhe mbiemri. Demo: përdorni CM-0999 ose kodin e një porosie që bëtë më parë.',F_STAT,'Dërgo');
+  add('status',{title:'Kërkesë për status',fn:d.fn,lines:[['Instagram',cur.handle],['Porosia',d.code],['Klienti',d.fn+' '+d.ln]]});
+  await bot('Faleminderit, '+d.fn+'. Do ta verifikojmë statusin e porosisë suaj dhe do t’ju njoftojmë këtu sa më shpejt të jetë e mundur.',900);
+ }
+ if(my!==cur)return;
+ my.done=true;renderConvs();
+ $('#endbar').hidden=false}
+function start(full){if(!full&&cur)saveView();S++;tab='orders';last='';chat.innerHTML='';pills.innerHTML='';pills.className='';lock();
+ const sh=$('#sheet');if(sh)sh.remove();$('#endbar').hidden=true;
+ if(full){seq=1000;cidN=0;convs=[];for(const k in store)store[k]=[]}
+ persona=$('#nm').value.trim()||'Era';
+ cur={id:'c'+(++cidN),handle:POOL[convs.length%POOL.length]+(convs.length>=POOL.length?String(convs.length):''),html:'',done:false,unread:false};convs.push(cur);viewId=cur.id;
+ chat.appendChild(el('div','prof','<div class="av"><i>C</i></div><b>Coco Mama Kids</b><small>cocomamakids · Instagram</small><span class="vp">Shiko profilin</span>'));
+ chat.appendChild(el('div','day','Sot '+stamp()));
+ renderConvs();render();main()}
+$('#rs').onclick=()=>start(true);$('#nm').onchange=()=>start(true);$('#again').onclick=()=>start(false);
+const show=p=>{$('#demo').style.display=p?'none':'';$('#plan').style.display=p?'block':'none';$('#n1').className=p?'':'on';$('#n2').className=p?'on':'';window.scrollTo(0,0)};
+$('#n1').onclick=()=>show(0);$('#n2').onclick=()=>show(1);
+start(true);
+</script>
+</body>
+</html>
